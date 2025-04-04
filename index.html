@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ulang Tahun</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #ffebee;
+        overflow: hidden;
+        margin: 0;
+        height: 100%;
+      }
+      .landing,
+      .page2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        position: relative;
+      }
+
+      .klik-button {
+        background-color: #d81b60;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2em;
+        border-radius: 5px;
+        transition: transform 0.2s, background 0.3s;
+      }
+
+      .klik-button:hover {
+        background-color: #c2185b;
+        transform: scale(1.1);
+      }
+
+      .emoji {
+        position: absolute;
+        font-size: 1.8em;
+        animation: float 3s infinite alternate ease-in-out;
+        z-index: -1;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        position: relative;
+      }
+
+      .photo-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        width: 80%;
+        position: relative;
+      }
+
+      .birthday-photo {
+        width: 200px;
+        opacity: 0;
+        transform: translateX(100vw); /* Gambar mulai dari luar kanan */
+        transition: transform 2s, opacity 2s;
+      }
+
+      .birthday-photo.left {
+        transform: translateX(-100vw); /* Gambar kedua mulai dari luar kiri */
+      }
+
+      .show {
+        opacity: 1;
+        transform: translateX(0); /* Bergerak ke posisi tengah */
+      }
+
+      #birthday-name {
+        margin-top: 20px;
+        opacity: 0;
+        transition: opacity 1s;
+      }
+
+      .show-name {
+        opacity: 1;
+      }
+
+      #emoji-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        pointer-events: none;
+      }
+      @keyframes shake {
+        0% {
+          transform: translateX(0); /* Mulai di posisi normal */
+        }
+        25% {
+          transform: translateX(-10px); /* Geser sedikit ke kiri */
+        }
+        50% {
+          transform: translateX(10px); /* Geser sedikit ke kanan */
+        }
+        75% {
+          transform: translateX(-10px); /* Geser ke kiri lagi */
+        }
+        100% {
+          transform: translateX(0); /* Kembali ke posisi normal */
+        }
+      }
+
+      .birthday-message {
+        font-size: 3em;
+        display: inline-block;
+        font-weight: bold;
+        color: #599eb9;
+        animation: shake 1s ease-in-out infinite;
+        display: none; /* Initially hide the message */
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      span {
+        color: #1c3bb7;
+      }
+
+      .additional-photos {
+        position: absolute;
+        width: 200px;
+        opacity: 0;
+        transform: translateX(100vw);
+        transition: transform 2s, opacity 2s;
+      }
+
+      .additional-photos.left-top {
+        top: 10%;
+        left: 10%;
+      }
+
+      .additional-photos.right-top {
+        top: 10%;
+        right: 10%;
+      }
+
+      .additional-photos.left-bottom {
+        bottom: 10%;
+        left: 10%;
+      }
+
+      .additional-photos.right-bottom {
+        bottom: 10%;
+        right: 10%;
+      }
+
+      .show-photo {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .button-container {
+        margin-top: 20px;
+      }
+
+      /* Ensure button in page2 stays below text */
+      .page2-button {
+        margin-top: 30px; /* Distance from the photos */
+      }
+
+      /* Styling for the curved Happy Birthday text */
+      #happy-birthday {
+        font-size: 3em;
+        font-weight: bold;
+        color: #ff4081;
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%) rotate(-20deg);
+        opacity: 0;
+        transition: opacity 1s, transform 1s;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="landing">
+      <h1>Cie ada yang ulang tahun nih! 🎉</h1>
+      <button class="klik-button" onclick="nextPage()">Klik Here</button>
+      <div id="emoji-container"></div>
+    </div>
+    <div class="page2 hidden">
+      <div class="container">
+        <div class="photo-wrapper">
+          <img class="birthday-photo" src="img/foto2.jpg" alt="Foto 1" />
+          <img class="birthday-photo" src="img/foto2.jpg" alt="Foto 2" />
+        </div>
+        <h2 id="birthday-name" class="hidden">
+          Selamat Ulang Tahun, <span>jila istri wawan</span>
+        </h2>
+        <div class="button-container">
+          <button class="klik-button page2-button" onclick="showPhotos()">
+            Klik 5 kali ya
+          </button>
+        </div>
+      </div>
+
+      <div class="additional-photos left-top">
+        <img
+          class="additional-photo"
+          src="icon/wawan1-removebg-preview.png"
+          alt="Foto 3"
+        />
+      </div>
+
+      <div class="additional-photos right-top">
+        <img
+          class="additional-photo"
+          src="icon/wawan2-removebg-preview.png"
+          alt="Foto 4"
+        />
+      </div>
+
+      <div class="additional-photos left-bottom">
+        <img
+          class="additional-photo"
+          src="icon/wawan5-removebg-preview.png"
+          alt="Foto 5"
+        />
+      </div>
+
+      <div class="additional-photos right-bottom">
+        <img
+          class="additional-photo"
+          src="icon/wawam4-removebg-preview.png"
+          alt="Foto 6"
+        />
+      </div>
+
+      <div id="emoji-container-page2"></div>
+
+      <!-- Curved Happy Birthday Text -->
+      <div id="happy-birthday">Happy Birthday, <span>Zill!🎉</span>  </div>
+    </div>
+
+    <script>
+      function nextPage() {
+        document.querySelector(".landing").style.opacity = 0;
+
+        setTimeout(() => {
+          document.querySelector(".landing").classList.add("hidden");
+          document.querySelector(".page2").classList.remove("hidden");
+          startAnimation();
+        }, 500);
+      }
+
+      function startAnimation() {
+        setTimeout(() => {
+          const photos = document.querySelectorAll(".birthday-photo");
+          photos[0].classList.add("show");
+          photos[1].classList.add("show");
+        }, 500);
+
+        setTimeout(() => {
+          const birthdayName = document.getElementById("birthday-name");
+          birthdayName.classList.remove("hidden");
+          birthdayName.classList.add("show-name");
+          birthdayName.style.opacity = 1;
+          generateEmojis("page2");
+        }, 3000);
+      }
+
+      function generateEmojis(page) {
+        const emojiContainer = document.getElementById(
+          page === "page2" ? "emoji-container-page2" : "emoji-container"
+        );
+        const emojis = ["🥳", "🤩", "😆", "🎉", "🎂", "🎊"];
+        const totalEmojis = page === "page2" ? 50 : 50;
+
+        for (let i = 0; i < totalEmojis; i++) {
+          let emoji = document.createElement("div");
+          emoji.classList.add("emoji");
+          emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+          emoji.style.top = Math.random() * 80 + "vh";
+          emoji.style.left = Math.random() * 90 + "vw";
+          emoji.style.transform = `rotate(${Math.random() * 360}deg)`;
+          emojiContainer.appendChild(emoji);
+        }
+      }
+
+      let clickCount = 0;
+      function showPhotos() {
+        if (clickCount === 4) {
+          // Show the "Happy Birthday" text after 5th click (clickCount starts at 0)
+          document.getElementById("happy-birthday").style.opacity = 1;
+          document.getElementById("happy-birthday").style.transform =
+            "translateX(-50%) rotate(0deg)";
+        }
+        if (clickCount === 0) {
+          document
+            .querySelector(".additional-photos.left-top")
+            .classList.add("show-photo");
+        } else if (clickCount === 1) {
+          document
+            .querySelector(".additional-photos.right-top")
+            .classList.add("show-photo");
+        } else if (clickCount === 2) {
+          document
+            .querySelector(".additional-photos.left-bottom")
+            .classList.add("show-photo");
+        } else if (clickCount === 3) {
+          document
+            .querySelector(".additional-photos.right-bottom")
+            .classList.add("show-photo");
+        }
+
+        clickCount++;
+      }
+
+      generateEmojis("landing");
+    </script>
+  </body>
+</html>
